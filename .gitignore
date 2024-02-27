@@ -1,0 +1,5 @@
+.env
+import - pilotlog_mcc.json
+venv
+.idea
+__pycache__
