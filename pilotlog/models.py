@@ -1,8 +1,8 @@
 from django.db import models
-from core.base_models import BaseAbstractModel
+from core.base_models import BaseAppModel
 
 
-class PilotLog(BaseAbstractModel):
+class PilotLog(BaseAppModel):
     file = models.FileField(upload_to='pilot_logs/%Y/%m/%d/')
 
     class Meta:

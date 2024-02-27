@@ -3,3 +3,5 @@ import - pilotlog_mcc.json
 venv
 .idea
 __pycache__
+db.sqlite3
+pilot_logs

@@ -1,4 +1,12 @@
 from django.db import models
+import uuid
+
+
+class BaseModel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
 
 
 class BaseAbstractModel(models.Model):
@@ -8,3 +16,9 @@ class BaseAbstractModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class BaseAppModel(BaseModel, BaseAbstractModel):
+    class Meta:
+        abstract = True
+        #ordering = ['-created_at']
