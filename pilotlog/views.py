@@ -5,7 +5,7 @@ from pilotlog import serializers, models, utils
 
 
 class PilotLogAPIViewSet(viewsets.ModelViewSet):
-    queryset = models.PilotLog.objects.all()
+    queryset = models.PilotLog.objects.get_latest_logs()
     serializer_class = serializers.PilotLogSerializer
 
     @action(detail=True, methods=['get'])
