@@ -11,12 +11,15 @@ class PilotLogAPIViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def download(self, request, pk=None):
         instance = self.get_object()
-        response = HttpResponse(
-            content_type='text/csv',
-            headers={
-                'Content-Disposition': f'attachment; filename="{utils.generate_n_length_random_string(20)}.csv"'},
-        )
+        try:
+            response = HttpResponse(
+                content_type='text/csv',
+                headers={
+                    'Content-Disposition': f'attachment; filename="{utils.generate_n_length_random_string(20)}.csv"'},
+            )
 
-        utils.prepare_csv_file(instance.file, response)
+            utils.prepare_csv_file(instance.file, response)
 
-        return response
+            return response
+        except Exception as e:
+            return HttpResponse("The file uploaded may have bugs, try with the sample attached file.", status=500)
