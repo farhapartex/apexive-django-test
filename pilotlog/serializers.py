@@ -15,3 +15,10 @@ class PilotLogSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Only JSON files are allowed.")
 
         return value
+
+    def create(self, validated_data):
+        """
+        Create and return a new `PilotLog` instance, given the validated data.
+        """
+        validated_data['pilot'] = self.context['request'].user
+        return super().create(validated_data)

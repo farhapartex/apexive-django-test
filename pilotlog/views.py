@@ -1,12 +1,15 @@
 from django.http import HttpResponse
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from pilotlog import serializers, models, utils
 
 
 class PilotLogAPIViewSet(viewsets.ModelViewSet):
-    queryset = models.PilotLog.objects.get_latest_logs()
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.PilotLogSerializer
+
+    def get_queryset(self):
+        return models.PilotLog.objects.get_pilot_logs(self.request.user)
 
     @action(detail=True, methods=['get'])
     def download(self, request, pk=None):
